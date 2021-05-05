@@ -1,0 +1,9 @@
+name: BedWars
+main: argento.bedwars.Main
+version: 1.0
+api-version: 1.13
+author: Argento
+depend: [Vault]
+commands:
+  bedwars:
+    aliases: [bw]

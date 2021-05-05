@@ -1,0 +1,247 @@
+bed_break_money: 50
+win_money: 100
+final_kill_money: 25
+lobby_time: 30
+game_time: 2400
+upgrades:
+  generator:
+    2: 8
+    3: 16
+    4: 24
+    5: 32
+  sword:
+    2: 8
+    3: 16
+    4: 24
+  armor:
+    2: 4
+    3: 8
+    4: 16
+    5: 32
+  speed:
+    2: 4
+    3: 8
+    4: 16
+up_tier_time:
+  '2': 1600
+  '3': 800
+bed_gone_time: 400
+iron_tier:
+  '1':
+    amount: 1
+    time: 1
+  '2':
+    amount: 2
+    time: 1
+  '3':
+    amount: 2
+    time: 1
+gold_tier:
+  '1':
+    amount: 1
+    time: 4
+  '2':
+    amount: 1
+    time: 2
+  '3':
+    amount: 1
+    time: 1
+diamond_tier:
+  '1':
+    amount: 1
+    time: 30
+  '2':
+    amount: 1
+    time: 20
+  '3':
+    amount: 1
+    time: 10
+emerald_tier:
+  '1':
+    amount: 1
+    time: 60
+  '2':
+    amount: 1
+    time: 40
+  '3':
+    amount: 1
+    time: 20
+arena:
+  name: Маяк
+  status: "wait"
+  min_teams: 2
+  max_teams: 4
+  players_in_team: 1
+  diamonds_gen: []
+  emeralds_gen: []
+  shops:
+  - ==: org.bukkit.Location
+    world: world
+    x: -7.0
+    y: 64.0
+    z: -79.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: -80.0
+    y: 64.0
+    z: 8.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: 7.0
+    y: 63.0
+    z: 81.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: 79.0
+    y: 64.0
+    z: -6.0
+    pitch: 0.0
+    yaw: 0.0
+  upgrades:
+  - ==: org.bukkit.Location
+    world: world
+    x: 7.0
+    y: 64.0
+    z: -78.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: -79.0
+    y: 64.0
+    z: -6.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: -5.0
+    y: 63.0
+    z: 80.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: 79.0
+    y: 64.0
+    z: 8.0
+    pitch: 0.0
+    yaw: 0.0
+  commands:
+    Красные:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: 0.5569452151974212
+        y: 64.0
+        z: -67.57436084476457
+        pitch: -0.01923195
+        yaw: 358.0951
+      color: c
+      iron_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 62.0
+        z: -81.0
+        pitch: 0.0
+        yaw: 0.0
+      gold_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 62.0
+        z: -81.0
+        pitch: 0.0
+        yaw: 0.0
+    Зелёные:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: -67.5243430820413
+        y: 64.0
+        z: 1.3969384470842467
+        pitch: 2.0549612
+        yaw: 272.0172
+      color: '2'
+      iron_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: -82.0
+        y: 62.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+      gold_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: -82.0
+        y: 62.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+    Жёлтые:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: 0.6018104899053389
+        y: 64.0
+        z: 70.19637517778251
+        pitch: -2.0934138
+        yaw: 179.50879
+      color: e
+      iron_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 62.0
+        z: 83.0
+        pitch: 0.0
+        yaw: 0.0
+      gold_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 62.0
+        z: 83.0
+        pitch: 0.0
+        yaw: 0.0
+    Синие:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: 69.33923647568443
+        y: 64.0
+        z: 1.3722791505331318
+        pitch: 2.469804
+        yaw: 90.11243
+      color: '1'
+      iron_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 82.0
+        y: 62.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+      gold_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 82.0
+        y: 62.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+  spec_spawn:
+    ==: org.bukkit.Location
+    world: world
+    x: 1.7452194904847462
+    y: 114.1684951173991
+    z: 2.9075526227530033
+    pitch: 88.755486
+    yaw: 183.0326
