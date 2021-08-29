@@ -1,0 +1,688 @@
+#If you want, you can connect mysql to collect players stats
+#jdbc:mysql://[host]:[port]/[database]
+#Create [database] in your MySQL before loading!
+MySQL:
+  enabled: true
+  url: "jdbc:mysql://localhost:3306/bedwars?useSSL=false&autoReConnect=true"
+  user: "root"
+  password: ""
+#if BungeeCord enabled, player will be teleported at lobby at game end, else will be run command_at_game_end by player
+
+BungeeCord:
+  enabled: true
+  lobby: "lobby"
+command_at_game_end: "/lobby"
+
+#TAB plugin by NEZNAMY - https://github.com/NEZNAMY/TAB/releases/tag/2.9.2
+#With this plugin players will have colored nicknames in TAB
+TAB_plugin_support: true
+
+#PLUGIN CANNOT REGENERATE MAP!
+#You need to use shell script to replace map at your server folder after restart!
+#SHELL EXAMPLE of start.sh (linux)
+#rm -R world
+#cp -avr map world
+#screen -S bw7 -X quit
+#screen -S bw7 -m -d java -Xincgc -server -jar -Xms800m -Xmx800m spigot-1.17.1.jar
+#
+#SHELL EXAMPLE of start.bat (windows)
+#rd /s /q "logs"
+#rd /s /q "world"
+#xcopy map world /D /E /C /R /H /I /K /Y
+#java -jar -Xms600m -Xmx600m spigot-1.17.1.jar
+#
+#folder map should have CLEAN map
+
+game_end_restart_seconds: 15
+game_end_to_lobby_players_seconds: 12
+command_stat_cooldown: 5 #seconds
+
+give_elytra_at_game_end: true
+fireball_cooldown: 20 #20 ticks = 1 second
+fireball_radius_explosion: 3 #in blocks
+fireball_distance_from_player: 1.0
+disable_tnt_damage_others_players: true
+glass_unexplosion: true #should glass save from tnt?
+players_need_food: false
+
+give_money: true #MAKE SURE that you have Vault plugin and ANY Economy plugin!
+bed_break_money: 50
+win_money: 100
+final_kill_money: 25
+
+respawn_time_seconds: 5
+autodeath_y_coord: -70 #if player below this coord he auto die
+height_limit: 255
+border: 500
+lobby_time: 30
+game_time: 2400 #seconds
+slow_and_blind_after_bed_break: true
+sounds:
+  bed_break:
+    enabled: true
+    sound: "ENTITY_ENDER_DRAGON_AMBIENT"
+
+#These blocks u can place around ur bed to get some features
+specific_blocks:
+  distance_to_bed_need: 5
+  bell: #ringing when opponents around ur bed
+    enabled: true
+    material: "BELL"
+  campfire: #disable ALL upgrades of ur opponents around ur bed
+    enabled: true
+    material: "CAMPFIRE"
+
+upgrades:
+  trap: 2 #in diamonds
+  generator:
+    2: 8
+    3: 16
+    4: 24
+    5: 32
+  sword:
+    2: 8
+    3: 16
+    4: 24
+  armor:
+    2: 4
+    3: 8
+    4: 16
+    5: 32
+  speed:
+    2: 4
+    3: 8
+    4: 16
+up_tier_time:
+  '2': 1600
+  '3': 800
+bed_gone_time: 400
+iron_tier:
+  '1':
+    amount: 1
+    time: 1
+  '2':
+    amount: 2
+    time: 1
+  '3':
+    amount: 2
+    time: 1
+gold_tier:
+  '1':
+    amount: 1
+    time: 4
+  '2':
+    amount: 1
+    time: 2
+  '3':
+    amount: 1
+    time: 1
+diamond_tier:
+  '1':
+    amount: 1
+    time: 30
+  '2':
+    amount: 1
+    time: 20
+  '3':
+    amount: 1
+    time: 10
+emerald_tier:
+  '1':
+    amount: 1
+    time: 60
+  '2':
+    amount: 1
+    time: 40
+  '3':
+    amount: 1
+    time: 20
+
+shops:
+  blocks:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: WHITE_WOOL #will be replace to player team color wool
+    amount: 16
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §fЖелеза' #edit this as GUI.upgrades.3 structure in your lang.yml!
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: WHITE_TERRACOTTA
+    amount: 16
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c12 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: END_STONE
+    amount: 16
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c24 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: OAK_PLANKS
+    amount: 8
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c3 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: GLASS
+    amount: 16
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c6 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SPONGE
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: MAGMA_BLOCK
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: OBSIDIAN
+    amount: 8
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SLIME_BLOCK
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c20 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: HAY_BLOCK
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c1 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: LADDER
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TWISTING_VINES
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c20 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SCAFFOLDING
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c30 §fЖелеза'
+  armor:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CHAINMAIL_BOOTS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §fКольчужная броня
+      lore:
+      - '§7Цена: §c30 §fЖелеза'
+      - §7(§cСохраняется после смерти§7)
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: IRON_BOOTS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §fЖелезная броня
+      lore:
+      - '§7Цена: §c12 §6Золота'
+      - §7(§cСохраняется после смерти§7)
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: DIAMOND_BOOTS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §fАлмазная броня
+      lore:
+      - '§7Цена: §c6 §2Изумруд(-ов,-а)'
+      - §7(§cСохраняется после смерти§7)
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: NETHERITE_BOOTS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §fНезеритовая броня
+      lore:
+      - '§7Цена: §c10 §2Изумруд(-ов,-а)'
+      - §7(§cСохраняется после смерти§7)
+  swords:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: STONE_SWORD
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §fЖелеза'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: IRON_SWORD
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c7 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: DIAMOND_SWORD
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: NETHERITE_SWORD
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TRIDENT
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §2Изумруд(-ов,-а)'
+      enchants:
+        LOYALTY: 1
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SHIELD
+    meta:
+      ==: ItemMeta
+      meta-type: TILE_ENTITY
+      lore:
+      - '§7Цена: §c20 §6Золота'
+      Unbreakable: true
+      blockMaterial: SHIELD
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: STICK
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §6Золота'
+      enchants:
+        KNOCKBACK: 2
+  bows:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: BOW
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c12 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: BOW
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c24 §6Золота'
+      enchants:
+        ARROW_DAMAGE: 1
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: BOW
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      enchants:
+        ARROW_DAMAGE: 1
+        ARROW_KNOCKBACK: 1
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CROSSBOW
+    meta:
+      ==: ItemMeta
+      meta-type: CROSSBOW
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+      charged: false
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CROSSBOW
+    meta:
+      ==: ItemMeta
+      meta-type: CROSSBOW
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+      enchants:
+        MULTISHOT: 1
+      Unbreakable: true
+      charged: false
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CROSSBOW
+    meta:
+      ==: ItemMeta
+      meta-type: CROSSBOW
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+      enchants:
+        PIERCING: 3
+      Unbreakable: true
+      charged: false
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: ARROW
+    amount: 8
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c2 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TIPPED_ARROW
+    amount: 2
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c16 §6Золота'
+      potion-type: minecraft:slowness
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TIPPED_ARROW
+    amount: 2
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c16 §6Золота'
+      potion-type: minecraft:weakness
+  tools:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SHEARS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c5 §fЖелеза'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: STONE_PICKAXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §fЖелеза'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: STONE_AXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §fЖелеза'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: IRON_PICKAXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: IRON_AXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: DIAMOND_PICKAXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: DIAMOND_AXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: NETHERITE_PICKAXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c1 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: NETHERITE_AXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+  useful:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TNT
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c6 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: WATER_BUCKET
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c3 §6Золота'
+      - §fА §bВатер-дроп §fслабо сделать?
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: GOLDEN_APPLE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c3 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TOTEM_OF_UNDYING
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: ENDER_PEARL
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: BELL
+    meta:
+      ==: ItemMeta
+      meta-type: TILE_ENTITY
+      lore:
+      - '§7Цена: §c64 §fЖелеза'
+      - §fОповещает всех союзников при
+      - §fвторжении на вашу базу
+      - §7(§cставить возле кровати§7)
+      blockMaterial: BELL
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CAMPFIRE
+    meta:
+      ==: ItemMeta
+      meta-type: TILE_ENTITY
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+      - §fУ врагов, вошедших на вашу базу будут
+      - §fвременно выключены все §cпрокачки
+      - §7(§cставить возле кровати§7)
+      blockMaterial: CAMPFIRE
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: FIRE_CHARGE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c50 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: EGG
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c2 §2Изумруд(-ов,-а)'
+      - §fСоздаёт дорожку из блоков
+  potions:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      - '§fДлительность: §c30 секунд'
+      potion-type: minecraft:invisibility
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c3 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:strength
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c3 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:slow_falling
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c3 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:strong_turtle_master
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c2 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:strong_leaping
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c2 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:long_swiftness
+
+arena:
+  status: "reload"
+  upgrades: []
+  shops: []

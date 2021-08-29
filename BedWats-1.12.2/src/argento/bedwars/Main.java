@@ -316,18 +316,11 @@ public class Main extends JavaPlugin implements Listener {
 	}
 	
 	public boolean playerExist(String p_name) {
-		int a = -1;
-		String query = "SELECT games FROM bw_stats WHERE name = '"+p_name+"'";
 		try {
-			rs2 = stmt2.executeQuery(query);
-			rs2.next();
-			a = rs2.getInt(1);
-		}
-		catch(SQLException e) {
-			return false;
-		}
-		if(a < 0) return false;
-		return true;
+			int games = getGames(p_name);
+			if(games > 0) return true;
+		} catch(Exception ee) {};
+		return false;
 	}
 	
 	public void checkStat(Player p, String check) {
@@ -807,23 +800,24 @@ public class Main extends JavaPlugin implements Listener {
 					if(bed_alive.contains(team)) {
 						Location loc = e.getBlockPlaced().getLocation();
 						int x1 = bl.getBlockX(), z1 = bl.getBlockZ();
-						int x2 = loc.getBlockX(), z2 = bl.getBlockZ();
+						int x2 = loc.getBlockX(), z2 = loc.getBlockZ();
 						int dis = config.getInt("specific_blocks.distance_to_bed_need");
 						if(Math.abs(x1-x2) > dis || Math.abs(z1-z2) > dis) {
 							send(p, lang.getString("Common.1"));
 							e.setCancelled(true);
 						}
 						else {
+							blocks.add(e.getBlock().getLocation());
 							send(p, lang.getString("Common.2"));
 							for(String p_name : teams.get(team)) {
 								Player pl = Bukkit.getPlayer(p_name);
 								send(pl, p.getDisplayName()+lang.getString("Common.3"));
 							}
-							blocks.add(e.getBlock().getLocation());
 						}
 					}
 					else {
 						send(p, lang.getString("Common.4"));
+						e.setCancelled(true);
 					}
 				}
 				else blocks.add(e.getBlock().getLocation());
@@ -1044,7 +1038,7 @@ public class Main extends JavaPlugin implements Listener {
 							List<String> lore2 = new ArrayList<String>();
 							if(stage.get(team) < 5) { //    String.valueOf(stage.get(team))
 								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_generator.get(stage.get(team)+1))));
-								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(stage.get(team))).replaceAll("%after%", String.valueOf(stage.get(team))));
+								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(stage.get(team))).replaceAll("%after%", String.valueOf(stage.get(team)+1)));
 							}
 							else lore2.add(lang.getString("GUI.upgrades.11"));
 							meta.setLore(lore2);
@@ -1077,7 +1071,7 @@ public class Main extends JavaPlugin implements Listener {
 							List<String> lore2 = new ArrayList<String>();
 							if(team_swords.get(team) < 4) {
 								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_sword.get(team_swords.get(team)+1))));
-								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(team_swords.get(team))).replaceAll("%after%", String.valueOf(team_swords.get(team))));
+								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(team_swords.get(team))).replaceAll("%after%", String.valueOf(team_swords.get(team)+1)));
 							}
 							else lore2.add(lang.getString("GUI.upgrades.11"));
 							meta.setLore(lore2);
@@ -1124,7 +1118,7 @@ public class Main extends JavaPlugin implements Listener {
 							List<String> lore2 = new ArrayList<String>();
 							if(team_armor.get(team) < 5) {
 								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_armor.get(team_armor.get(team)+1))));
-								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(team_armor.get(team))).replaceAll("%after%", String.valueOf(team_armor.get(team))));
+								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(team_armor.get(team))).replaceAll("%after%", String.valueOf(team_armor.get(team)+1)));
 							}
 							else lore2.add(lang.getString("GUI.upgrades.11"));
 							meta.setLore(lore2);
@@ -1175,7 +1169,7 @@ public class Main extends JavaPlugin implements Listener {
 							List<String> lore2 = new ArrayList<String>();
 							if(team_speed.get(team) < 4) {
 								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_speed.get(team_speed.get(team)+1))));
-								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(team_speed.get(team))).replaceAll("%after%", String.valueOf(team_speed.get(team))));
+								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(team_speed.get(team))).replaceAll("%after%", String.valueOf(team_speed.get(team)+1)));
 							}
 							else lore2.add(lang.getString("GUI.upgrades.11"));
 							meta.setLore(lore2);
@@ -1272,7 +1266,16 @@ public class Main extends JavaPlugin implements Listener {
 								removeItem(inv, Material.IRON_INGOT, price);
 								p.updateInventory();
 								ItemStack res = new ItemStack(it.getType(), it.getAmount());
-								p.getInventory().addItem(res);
+								if(it.getType() == Material.WOOL) {
+									ItemStack cp = it.clone();
+									ItemMeta mm = cp.getItemMeta();
+									mm.setLore(null);
+									cp.setItemMeta(mm);
+									p.getInventory().addItem(cp);
+								}
+								else {
+									p.getInventory().addItem(res);
+								}
 								p.updateInventory();
 							}
 							else send(p, lang.getString("Common.11"));
@@ -1282,7 +1285,16 @@ public class Main extends JavaPlugin implements Listener {
 								removeItem(inv, Material.GOLD_INGOT, price);
 								p.updateInventory();
 								ItemStack res = new ItemStack(it.getType(), it.getAmount());
-								p.getInventory().addItem(res);
+								if(it.getType() == Material.WOOL) {
+									ItemStack cp = it.clone();
+									ItemMeta mm = cp.getItemMeta();
+									mm.setLore(null);
+									cp.setItemMeta(mm);
+									p.getInventory().addItem(cp);
+								}
+								else {
+									p.getInventory().addItem(res);
+								}
 								p.updateInventory();
 							}
 							else send(p, lang.getString("Common.11"));
@@ -1292,7 +1304,16 @@ public class Main extends JavaPlugin implements Listener {
 								removeItem(inv, Material.EMERALD, price);
 								p.updateInventory();
 								ItemStack res = new ItemStack(it.getType(), it.getAmount());
-								p.getInventory().addItem(res);
+								if(it.getType() == Material.WOOL) {
+									ItemStack cp = it.clone();
+									ItemMeta mm = cp.getItemMeta();
+									mm.setLore(null);
+									cp.setItemMeta(mm);
+									p.getInventory().addItem(cp);
+								}
+								else {
+									p.getInventory().addItem(res);
+								}
 								p.updateInventory();
 							}
 							else send(p, lang.getString("Common.11"));
@@ -1810,7 +1831,7 @@ public class Main extends JavaPlugin implements Listener {
 	public void interact(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		if(status.equals("wait")) e.setCancelled(true);
-		if(e.getClickedBlock() != null && (e.getClickedBlock().getType() == Material.ANVIL || e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE)) e.setCancelled(true);
+		if(e.getAction() == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock() != null && (e.getClickedBlock().getType() == Material.ANVIL || e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE)) e.setCancelled(true);
 		if(p.getItemInHand().isSimilar(item)) {
 			if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 				p.openInventory(inv);
@@ -2288,7 +2309,7 @@ public class Main extends JavaPlugin implements Listener {
 			count_players++;
 			p.getInventory().setItem(8, lobby);
 			addToTeam(p);
-			
+
 			ItemStack now = getConfig().getItemStack("arena.commands."+player_teams.get(p.getName())+".block");
 			ItemMeta meta = now.getItemMeta();
 			meta.setDisplayName(lang.getString("hotbar.team_select"));
@@ -2500,29 +2521,38 @@ public class Main extends JavaPlugin implements Listener {
                     30);
                            Block hitBlock = null;
               boolean ch = true;
+  			  e.getEntity().remove();
               while (iterator.hasNext()) {
                   hitBlock = iterator.next();
                   if(!ch) {
-	                  if (hitBlock.getType() == Material.AIR) {
-	                      hitBlock.setType(Material.SANDSTONE);
-	                      Location loc = hitBlock.getLocation();
+                      Location loc = new Location(hitBlock.getWorld(), hitBlock.getLocation().getBlockX(), hitBlock.getLocation().getBlockY()-1, hitBlock.getLocation().getBlockZ());
+	                  if (loc.getBlock().getType() == Material.AIR) {
 	                      if(loc.getBlockY() <= config.getInt("height_limit")) {
+	                    	  loc.getBlock().setType(Material.SANDSTONE);
+		                      blocks.add(loc);
 		                      Location loc1 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()+1);
 		                      Location loc2 = new Location(loc.getWorld(), loc.getBlockX(), loc.getBlockY(), loc.getBlockZ()-1);
 		                      Location loc3 = new Location(loc.getWorld(), loc.getBlockX()+1, loc.getBlockY(), loc.getBlockZ());
 		                      Location loc4 = new Location(loc.getWorld(), loc.getBlockX()-1, loc.getBlockY(), loc.getBlockZ());
-		                      loc1.getBlock().setType(Material.SANDSTONE);
-		                      loc2.getBlock().setType(Material.SANDSTONE);
-		                      loc3.getBlock().setType(Material.SANDSTONE);
-		                      loc4.getBlock().setType(Material.SANDSTONE);
-		                      blocks.add(loc);
-		                      blocks.add(loc1);
-		                      blocks.add(loc2);
-		                      blocks.add(loc3);
-		                      blocks.add(loc4);
+		                      if(loc1.getBlock().getType() == Material.AIR) {
+		                    	  loc1.getBlock().setType(Material.SANDSTONE);
+			                      blocks.add(loc1);
+		                      }
+		                      if(loc2.getBlock().getType() == Material.AIR) {
+		                    	  loc2.getBlock().setType(Material.SANDSTONE);
+			                      blocks.add(loc2);
+		                      }
+		                      if(loc3.getBlock().getType() == Material.AIR) {
+		                    	  loc3.getBlock().setType(Material.SANDSTONE);
+			                      blocks.add(loc3);
+		                      }
+		                      if(loc4.getBlock().getType() == Material.AIR) {
+		                    	  loc4.getBlock().setType(Material.SANDSTONE);
+			                      blocks.add(loc4);
+		                      }
 	                      }
 	                  }
-	                  else if(!blocks.contains(hitBlock.getLocation())) {
+	                  else if(!blocks.contains(loc)) {
 	                	  break;
 	                  }
                   }
@@ -2577,13 +2607,16 @@ public class Main extends JavaPlugin implements Listener {
 				actived_teams.add(team);
 				ItemStack now = getConfig().getItemStack("arena.commands."+team+".block");
 				try {
-					ItemStack ttt = inv_blocks.getItem(0);
-					ItemMeta meta = ttt.getItemMeta();
 					Inventory n = Bukkit.createInventory(null, 9*3, lang.getString("GUI.shop.2"));
-					ItemStack ff = new ItemStack(now.getType(), ttt.getAmount());
-					ff.setItemMeta(meta);
+					ItemStack ttt = inv_blocks.getItem(0);
+					ItemMeta meta = now.getItemMeta();
+					ItemMeta meta2 = ttt.getItemMeta();
+					meta.setDisplayName("§fШерсть");
+					meta.setLore(meta2.getLore());
+					now.setItemMeta(meta);
+					now.setAmount(ttt.getAmount());
 					n.setContents(inv_blocks.getContents());
-					n.setItem(0, ff);
+					n.setItem(0, now);
 					saved_inv.put(team, n);
 				} catch(Exception ee) {
 					Inventory n = Bukkit.createInventory(null, 9*3, lang.getString("GUI.shop.2"));
@@ -3192,28 +3225,12 @@ public class Main extends JavaPlugin implements Listener {
 			send(p, "/bw addupgrade");
 			return false;
 		}
-		if(!config.contains("arena.commands.spawn")) {
+		if(!config.contains("arena.commands")) {
 			send(p, lang.getString("Common.68"));
 			send(p, "/bw setspawn [command name]");
-			return false;
-		}
-		if(!config.contains("arena.commands.bed")) {
-			send(p, lang.getString("Common.68"));
 			send(p, "/bw setbedloc [command]");
-			return false;
-		}
-		if(!config.contains("arena.commands.block")) {
-			send(p, lang.getString("Common.68"));
 			send(p, "/bw setblock [command]");
-			return false;
-		}
-		if(!config.contains("arena.commands.iron_gens")) {
-			send(p, lang.getString("Common.68"));
 			send(p, "/bw addironspawn [command]");
-			return false;
-		}
-		if(!config.contains("arena.commands.armor")) {
-			send(p, lang.getString("Common.68"));
 			send(p, "/bw setarmor [command]");
 			return false;
 		}
@@ -3275,7 +3292,7 @@ public class Main extends JavaPlugin implements Listener {
 						send(p, "/bw setspec");
 						send(p, "/bw edit");
 						send(p, "/bw save");
-						send(p, "/bw additem [shop type] [price] [iron/gold/emerald] (name)");
+						send(p, "/bw additem [shop type] [price] [iron/gold/emeralds] (name)");
 						send(p, "/bw finish");
 						send(p, "/bw start");
 						send(p, "/bw faststart");
@@ -3368,7 +3385,8 @@ public class Main extends JavaPlugin implements Listener {
 						else if(args[0].equals("setblock")) {
 							if(args.length == 2) {
 								String name = args[1];
-								getConfig().set("arena.commands."+name+".block", p.getItemInHand());
+								ItemStack it = p.getItemInHand();
+								getConfig().set("arena.commands."+name+".block", it);
 								send(p, lang.getString("Common.64"));
 								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
 								saveConfig();

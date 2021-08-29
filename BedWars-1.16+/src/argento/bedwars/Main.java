@@ -36,6 +36,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Bee;
 import org.bukkit.entity.Egg;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -48,6 +49,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
 import org.bukkit.entity.TNTPrimed;
 import org.bukkit.entity.TippedArrow;
+import org.bukkit.entity.Trident;
 import org.bukkit.entity.Vex;
 import org.bukkit.entity.Villager;
 import org.bukkit.event.EventHandler;
@@ -214,6 +216,7 @@ public class Main extends JavaPlugin implements Listener {
 			e.printStackTrace();
 		}
 	}
+	
 	public void reloadConfig() {
 		if(file == null) {
 			file = new File(getDataFolder(), "config.yml");
@@ -546,7 +549,7 @@ public class Main extends JavaPlugin implements Listener {
 	
 	public void createUpgrade() {
 		upgrade = Bukkit.createInventory(null, 9*5, lang.getString("GUI.upgrades.1"));
-		ItemStack n = new ItemStack(Material.STAINED_GLASS_PANE);
+		ItemStack n = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
 		ItemMeta meta = n.getItemMeta();
 		meta.setDisplayName(" ");
 		n.setItemMeta(meta);
@@ -590,7 +593,7 @@ public class Main extends JavaPlugin implements Listener {
 		meta.setLore(lore);
 		up_gen.setItemMeta(meta);
 
-		ItemStack up_speed = new ItemStack(Material.GOLD_PICKAXE);
+		ItemStack up_speed = new ItemStack(Material.GOLDEN_PICKAXE);
 		meta = up_speed.getItemMeta();
 		meta.setDisplayName(lang.getString("GUI.upgrades.7"));
 		lore = new ArrayList<String>();
@@ -622,7 +625,7 @@ public class Main extends JavaPlugin implements Listener {
 	
 	public void createShop() {
 		shop = Bukkit.createInventory(null, 9*3, lang.getString("GUI.shop.1"));
-		ItemStack n = new ItemStack(Material.STAINED_GLASS_PANE);
+		ItemStack n = new ItemStack(Material.GRAY_STAINED_GLASS_PANE);
 		ItemMeta meta = n.getItemMeta();
 		meta.setDisplayName(" ");
 		n.setItemMeta(meta);
@@ -633,7 +636,7 @@ public class Main extends JavaPlugin implements Listener {
 		shop.setItem(9, n);
 		shop.setItem(17, n);
 		
-		shop_blocks = new ItemStack(Material.WOOL);
+		shop_blocks = new ItemStack(Material.OAK_PLANKS);
 		meta = shop_blocks.getItemMeta();
 		meta.setDisplayName(lang.getString("GUI.shop.2"));
 		shop_blocks.setItemMeta(meta);
@@ -802,7 +805,7 @@ public class Main extends JavaPlugin implements Listener {
 			}
 			else {
 				String team = player_teams.get(p.getName());
-				Location bl = (Location) getConfig().get("arena.commands."+team+".bed");
+				Location bl = getConfig().getLocation("arena.commands."+team+".bed");
 				if((e.getBlock().getType() == Material.getMaterial(config.getString("specific_blocks.bell.material")) && bell_enabled) || (e.getBlock().getType() == Material.getMaterial(config.getString("specific_blocks.campfire.material"))) && campfire_enabled) {
 					if(bed_alive.contains(team)) {
 						Location loc = e.getBlockPlaced().getLocation();
@@ -863,7 +866,7 @@ public class Main extends JavaPlugin implements Listener {
 		ConfigurationSection cs = getConfig().getConfigurationSection("arena.commands");
 		String team = "";
 		for(String name : cs.getKeys(false)) {
-			Location bed_lock = (Location) getConfig().get("arena.commands."+name+".bed");
+			Location bed_lock = getConfig().getLocation("arena.commands."+name+".bed");
 			if(bed_lock.getBlockY() == loc.getBlockY()) {
 				int x1 = loc.getBlockX(), x2 = bed_lock.getBlockX();
 				int z1 = loc.getBlockZ(), z2 = bed_lock.getBlockZ();
@@ -987,36 +990,34 @@ public class Main extends JavaPlugin implements Listener {
 		if(e.getInventory().equals(team_inv)) {
 			ItemStack it = e.getCurrentItem();
 			if(it != null) {
-				if(it.getItemMeta() != null) {
-					ItemMeta meta = it.getItemMeta();
-					String t = meta.getDisplayName().substring(2);
-					if(teams.containsKey(t)) {
-						if(!team.equals(t)) {
-							if(teams.get(t).size() < players_in_team) {
-								removePlayerFromTeam(p);
-								addPlayerToTeam(p, t);
-								setColor(p, t);
-								Location loc = (Location) getConfig().get("arena.commands."+t+".spawn");
-								String color = getConfig().getString("arena.commands."+t+".color");
-								p.teleport(loc);
-								send(p, lang.getString("Common.9")+color+t);
-								p.closeInventory();
-								
-								ItemStack now = getConfig().getItemStack("arena.commands."+t+".block");
-								meta = now.getItemMeta();
-								meta.setDisplayName(lang.getString("hotbar.team_select"));
-								now.setItemMeta(meta);
-								p.getInventory().setItem(0, now);
-								int min_players = players_in_team*min_teams;
-								if(!timer && count_players >= min_players && !isEnd()) {
-									startTimer();
-								}
-								if(timer && (count_players < min_players || isEnd())) {
-									stopTimer();
-								}
+				ItemMeta meta = it.getItemMeta();
+				String t = meta.getDisplayName().substring(2);
+				if(teams.containsKey(t)) {
+					if(!team.equals(t)) {
+						if(teams.get(t).size() < players_in_team) {
+							removePlayerFromTeam(p);
+							addPlayerToTeam(p, t);
+							setColor(p, t);
+							Location loc = getConfig().getLocation("arena.commands."+t+".spawn");
+							String color = getConfig().getString("arena.commands."+t+".color");
+							p.teleport(loc);
+							send(p, lang.getString("Common.9")+color+t);
+							p.closeInventory();
+							
+							ItemStack now = getConfig().getItemStack("arena.commands."+t+".block");
+							meta = now.getItemMeta();
+							meta.setDisplayName(lang.getString("hotbar.team_select"));
+							now.setItemMeta(meta);
+							p.getInventory().setItem(0, now);
+							int min_players = players_in_team*min_teams;
+							if(!timer && count_players >= min_players && !isEnd()) {
+								startTimer();
 							}
-							else send(p, lang.getString("Common.10"));
+							if(timer && (count_players < min_players || isEnd())) {
+								stopTimer();
+							}
 						}
+						else send(p, lang.getString("Common.10"));
 					}
 				}
 			}
@@ -1076,8 +1077,8 @@ public class Main extends JavaPlugin implements Listener {
 							Inventory inv = saved_up.get(team);
 							List<String> lore2 = new ArrayList<String>();
 							if(team_swords.get(team) < 4) {
-								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_sword.get(team_swords.get(team)+1))));
-								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(team_swords.get(team))).replaceAll("%after%", String.valueOf(team_swords.get(team))));
+								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_generator.get(stage.get(team)+1))));
+								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(stage.get(team))).replaceAll("%after%", String.valueOf(stage.get(team))));
 							}
 							else lore2.add(lang.getString("GUI.upgrades.11"));
 							meta.setLore(lore2);
@@ -1123,8 +1124,8 @@ public class Main extends JavaPlugin implements Listener {
 							Inventory inv = saved_up.get(team);
 							List<String> lore2 = new ArrayList<String>();
 							if(team_armor.get(team) < 5) {
-								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_armor.get(team_armor.get(team)+1))));
-								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(team_armor.get(team))).replaceAll("%after%", String.valueOf(team_armor.get(team))));
+								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_generator.get(stage.get(team)+1))));
+								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(stage.get(team))).replaceAll("%after%", String.valueOf(stage.get(team))));
 							}
 							else lore2.add(lang.getString("GUI.upgrades.11"));
 							meta.setLore(lore2);
@@ -1157,7 +1158,7 @@ public class Main extends JavaPlugin implements Listener {
 						else send(p, lang.getString("Common.11"));
 					}
 				}
-				else if(it.getType() == Material.GOLD_PICKAXE) {
+				else if(it.getType() == Material.GOLDEN_PICKAXE) {
 					if(team_speed.get(team) >= 4) {
 						send(p, lang.getString("Common.14"));
 					}
@@ -1174,8 +1175,8 @@ public class Main extends JavaPlugin implements Listener {
 							Inventory inv = saved_up.get(team);
 							List<String> lore2 = new ArrayList<String>();
 							if(team_speed.get(team) < 4) {
-								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_speed.get(team_speed.get(team)+1))));
-								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(team_speed.get(team))).replaceAll("%after%", String.valueOf(team_speed.get(team))));
+								lore2.add(lang.getString("GUI.upgrades.3").replaceAll("%price%", String.valueOf(upgrade_generator.get(stage.get(team)+1))));
+								lore2.add(lang.getString("GUI.upgrades.10").replaceAll("%before%", String.valueOf(stage.get(team))).replaceAll("%after%", String.valueOf(stage.get(team))));
 							}
 							else lore2.add(lang.getString("GUI.upgrades.11"));
 							meta.setLore(lore2);
@@ -1351,8 +1352,8 @@ public class Main extends JavaPlugin implements Listener {
 							boolean isSword = false;
 							if(it.getType() == Material.STONE_SWORD) {
 								isSword = true;
-								if(hasItem(inv, Material.WOOD_SWORD, 1)) {
-									removeItem(inv, Material.WOOD_SWORD, 1);
+								if(hasItem(inv, Material.WOODEN_SWORD, 1)) {
+									removeItem(inv, Material.WOODEN_SWORD, 1);
 								}
 							}
 							else if(it.getType() == Material.IRON_SWORD) {
@@ -1360,8 +1361,8 @@ public class Main extends JavaPlugin implements Listener {
 								if(hasItem(inv, Material.STONE_SWORD, 1)) {
 									removeItem(inv, Material.STONE_SWORD, 1);
 								}
-								if(hasItem(inv, Material.WOOD_SWORD, 1)) {
-									removeItem(inv, Material.WOOD_SWORD, 1);
+								if(hasItem(inv, Material.WOODEN_SWORD, 1)) {
+									removeItem(inv, Material.WOODEN_SWORD, 1);
 								}
 							}
 							else if(it.getType() == Material.DIAMOND_SWORD) {
@@ -1369,8 +1370,23 @@ public class Main extends JavaPlugin implements Listener {
 								if(hasItem(inv, Material.STONE_SWORD, 1)) {
 									removeItem(inv, Material.STONE_SWORD, 1);
 								}
-								if(hasItem(inv, Material.WOOD_SWORD, 1)) {
-									removeItem(inv, Material.WOOD_SWORD, 1);
+								if(hasItem(inv, Material.WOODEN_SWORD, 1)) {
+									removeItem(inv, Material.WOODEN_SWORD, 1);
+								}
+								if(hasItem(inv, Material.IRON_SWORD, 1)) {
+									removeItem(inv, Material.IRON_SWORD, 1);
+								}
+							}
+							else if(it.getType() == Material.NETHERITE_SWORD) {
+								isSword = true;
+								if(hasItem(inv, Material.DIAMOND_SWORD, 1)) {
+									removeItem(inv, Material.DIAMOND_SWORD, 1);
+								}
+								if(hasItem(inv, Material.STONE_SWORD, 1)) {
+									removeItem(inv, Material.STONE_SWORD, 1);
+								}
+								if(hasItem(inv, Material.WOODEN_SWORD, 1)) {
+									removeItem(inv, Material.WOODEN_SWORD, 1);
 								}
 								if(hasItem(inv, Material.IRON_SWORD, 1)) {
 									removeItem(inv, Material.IRON_SWORD, 1);
@@ -1437,7 +1453,7 @@ public class Main extends JavaPlugin implements Listener {
 						}
 						if(ch) {
 							if(it.getType() == Material.CHAINMAIL_BOOTS) {
-								if(hasItem(inv, Material.CHAINMAIL_BOOTS, 1) || hasItem(inv, Material.IRON_BOOTS, 1) || hasItem(inv, Material.DIAMOND_BOOTS, 1)) {
+								if(hasItem(inv, Material.CHAINMAIL_BOOTS, 1) || hasItem(inv, Material.IRON_BOOTS, 1) || hasItem(inv, Material.DIAMOND_BOOTS, 1) || hasItem(inv, Material.NETHERITE_BOOTS, 1)) {
 									send(p, lang.getString("Common.22"));
 								}
 								else {
@@ -1465,7 +1481,7 @@ public class Main extends JavaPlugin implements Listener {
 								}
 							}
 							else if(it.getType() == Material.IRON_BOOTS) {
-								if(hasItem(inv, Material.IRON_BOOTS, 1) || hasItem(inv, Material.DIAMOND_BOOTS, 1)) {
+								if(hasItem(inv, Material.IRON_BOOTS, 1) || hasItem(inv, Material.DIAMOND_BOOTS, 1) || hasItem(inv, Material.NETHERITE_BOOTS, 1)) {
 									send(p, lang.getString("Common.22"));
 								}
 								else {
@@ -1493,12 +1509,40 @@ public class Main extends JavaPlugin implements Listener {
 								}
 							}
 							else if(it.getType() == Material.DIAMOND_BOOTS) {
-								if(hasItem(inv, Material.DIAMOND_BOOTS, 1)) {
+								if(hasItem(inv, Material.DIAMOND_BOOTS, 1) || hasItem(inv, Material.NETHERITE_BOOTS, 1)) {
 									send(p, lang.getString("Common.22"));
 								}
 								else {
 									ItemStack leggings = new ItemStack(Material.DIAMOND_LEGGINGS);
 									ItemStack boots = new ItemStack(Material.DIAMOND_BOOTS);
+									ItemMeta m = leggings.getItemMeta();
+									m.setUnbreakable(true);
+									leggings.setItemMeta(m);
+									m = boots.getItemMeta();
+									m.setUnbreakable(true);
+									boots.setItemMeta(m);
+									
+									ItemStack bef_leg = player_leggings.get(p.getName());
+									ItemStack bef_boots = player_boots.get(p.getName());
+									leggings.addEnchantments(bef_leg.getEnchantments());
+									boots.addEnchantments(bef_boots.getEnchantments());
+									p.getInventory().setLeggings(leggings);
+									p.getInventory().setBoots(boots);
+									p.updateInventory();
+									
+									player_leggings.replace(p.getName(), leggings);
+									player_boots.replace(p.getName(), boots);
+									removeItem(inv, Material.EMERALD, price);
+									p.updateInventory();
+								}
+							}
+							else if(it.getType() == Material.NETHERITE_BOOTS) {
+								if(hasItem(inv, Material.NETHERITE_BOOTS, 1)) {
+									send(p, lang.getString("Common.22"));
+								}
+								else {
+									ItemStack leggings = new ItemStack(Material.NETHERITE_LEGGINGS);
+									ItemStack boots = new ItemStack(Material.NETHERITE_BOOTS);
 									ItemMeta m = leggings.getItemMeta();
 									m.setUnbreakable(true);
 									leggings.setItemMeta(m);
@@ -1596,6 +1640,28 @@ public class Main extends JavaPlugin implements Listener {
 								}
 								if(hasItem(inv, Material.IRON_AXE, 1)) {
 									removeItem(inv, Material.IRON_AXE, 1);
+								}
+							}
+							else if(it.getType() == Material.NETHERITE_PICKAXE) {
+								if(hasItem(inv, Material.STONE_PICKAXE, 1)) {
+									removeItem(inv, Material.STONE_PICKAXE, 1);
+								}
+								if(hasItem(inv, Material.IRON_PICKAXE, 1)) {
+									removeItem(inv, Material.IRON_PICKAXE, 1);
+								}
+								if(hasItem(inv, Material.DIAMOND_PICKAXE, 1)) {
+									removeItem(inv, Material.DIAMOND_PICKAXE, 1);
+								}
+							}
+							else if(it.getType() == Material.NETHERITE_AXE) {
+								if(hasItem(inv, Material.STONE_AXE, 1)) {
+									removeItem(inv, Material.STONE_AXE, 1);
+								}
+								if(hasItem(inv, Material.IRON_AXE, 1)) {
+									removeItem(inv, Material.IRON_AXE, 1);
+								}
+								if(hasItem(inv, Material.DIAMOND_AXE, 1)) {
+									removeItem(inv, Material.DIAMOND_AXE, 1);
 								}
 							}
 							ItemStack res = new ItemStack(it.getType(), it.getAmount());
@@ -1810,7 +1876,6 @@ public class Main extends JavaPlugin implements Listener {
 	public void interact(PlayerInteractEvent e) {
 		Player p = e.getPlayer();
 		if(status.equals("wait")) e.setCancelled(true);
-		if(e.getClickedBlock() != null && (e.getClickedBlock().getType() == Material.ANVIL || e.getClickedBlock().getType() == Material.ENCHANTMENT_TABLE)) e.setCancelled(true);
 		if(p.getItemInHand().isSimilar(item)) {
 			if(e.getAction() == Action.RIGHT_CLICK_AIR || e.getAction() == Action.RIGHT_CLICK_BLOCK) {
 				p.openInventory(inv);
@@ -1826,20 +1891,23 @@ public class Main extends JavaPlugin implements Listener {
 				p.openInventory(team_inv);
 			}
 		}
+		else if(p.getItemInHand().getType() == Material.FIREWORK_ROCKET && (e.getAction() == Action.LEFT_CLICK_AIR || e.getAction() == Action.LEFT_CLICK_BLOCK)) {
+			removeItem(p.getInventory(), Material.FIREWORK_ROCKET, 1);
+			TNTPrimed tnt = (TNTPrimed) p.getWorld().spawn(p.getLocation(), TNTPrimed.class);
+			tnt.setYield(15);
+			tnt.setVelocity(p.getLocation().getDirection().normalize().multiply(4));
+			tnt.setFuseTicks(15);
+		}
 		if(status.equals("play")) {
 			String name = player_teams.get(p.getName());
 			if(e.getAction() == Action.LEFT_CLICK_BLOCK && team_speed.get(name) >= 2) {
 				p.addPotionEffect(new PotionEffect(PotionEffectType.FAST_DIGGING, 20*15, team_speed.get(name)-1));
 			}
-			else if(p.getItemInHand().getType() == Material.FIREBALL && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)) {
+			else if(p.getItemInHand().getType() == Material.FIRE_CHARGE && (e.getAction() == Action.RIGHT_CLICK_BLOCK || e.getAction() == Action.RIGHT_CLICK_AIR)) {
                 if(!fireball_cooldowns.contains(p.getName())) {
                 	p.getItemInHand().setAmount(p.getItemInHand().getAmount()-1);
                 	
-                    float angle = (float) ((-p.getLocation().getYaw())*Math.PI/180.0);
-                    float dz = (float) (config.getDouble("fireball_distance_from_player")*Math.cos(angle));
-                    float dx = (float) (config.getDouble("fireball_distance_from_player")*Math.sin(angle));
-                    
-                    Location start = p.getLocation().add(dx, 1.0, dz);
+                    Location start = p.getLocation().add(0.0, 1.0, 0.0);
                     Fireball fireball = p.getWorld().spawn(start, Fireball.class);
                     fireball.setCustomName(p.getName());
                     fireball.setCustomNameVisible(false);
@@ -1867,7 +1935,7 @@ public class Main extends JavaPlugin implements Listener {
 	}
 	
 	public boolean hasBlock(String team, Material mat) {
-		Location bl = (Location) getConfig().get("arena.commands."+team+".bed");
+		Location bl = getConfig().getLocation("arena.commands."+team+".bed");
 		int x = bl.getBlockX(), z = bl.getBlockZ(), y = bl.getBlockY();
 		for(int xx = x-5; xx <= x+5; ++xx) {
 			for(int zz = z-5; zz <= z+5; ++zz) {
@@ -1884,7 +1952,7 @@ public class Main extends JavaPlugin implements Listener {
 		String res = "no";
 		for(String team : teams.keySet()) {
 			if(!teams.get(team).isEmpty()) {
-				Location bl = (Location) getConfig().get("arena.commands."+team+".bed");
+				Location bl = getConfig().getLocation("arena.commands."+team+".bed");
 				int x1 = loc.getBlockX(), y1 = loc.getBlockY(), z1 = loc.getBlockZ();
 				int x2 = bl.getBlockX(), y2 = bl.getBlockY(), z2 = bl.getBlockZ();
 				if(Math.sqrt(Math.abs(x1-x2)*Math.abs(x1-x2)+Math.abs(y1-y2)*Math.abs(y1-y2)+Math.abs(z1-z2)*Math.abs(z1-z2)) <= 10) {
@@ -1954,7 +2022,6 @@ public class Main extends JavaPlugin implements Listener {
 				else if(vil.getCustomName().equals(lang.getString("GUI.upgrades.1"))) {
 					p.openInventory(saved_up.get(player_teams.get(p.getName())));
 				}
-				e.setCancelled(true);
 			}
 		}
 	}
@@ -1979,7 +2046,7 @@ public class Main extends JavaPlugin implements Listener {
 	public void remCages() {
 		ConfigurationSection cs = getConfig().getConfigurationSection("arena.commands");
 		for(String name : cs.getKeys(false)) {
-			Location loc = (Location) getConfig().get("arena.commands."+name+".spawn");
+			Location loc = getConfig().getLocation("arena.commands."+name+".spawn");
 			ItemStack cage = new ItemStack(Material.AIR);
 			int x = loc.getBlockX();
 			int y = loc.getBlockY();
@@ -2008,7 +2075,7 @@ public class Main extends JavaPlugin implements Listener {
 		try {
 			ConfigurationSection cs = getConfig().getConfigurationSection("arena.commands");
 			for(String name : cs.getKeys(false)) {
-				Location loc = (Location) getConfig().get("arena.commands."+name+".spawn");
+				Location loc = getConfig().getLocation("arena.commands."+name+".spawn");
 				ItemStack cage = new ItemStack(Material.BARRIER);
 				int x = loc.getBlockX();
 				int y = loc.getBlockY();
@@ -2088,6 +2155,9 @@ public class Main extends JavaPlugin implements Listener {
 							sendAll(p.getDisplayName()+" "+lang.getString("Common.32"));
 						}
 						else sendAll(p.getDisplayName()+" "+lang.getString("Common.33"));
+					}
+					else if (killer instanceof Bee) {
+						sendAll(p.getDisplayName()+" "+lang.getString("Common.34"));
 					}
 					else if (deathCause == DamageCause.FIRE) {
 						sendAll(p.getDisplayName()+" "+lang.getString("Common.35"));
@@ -2217,13 +2287,13 @@ public class Main extends JavaPlugin implements Listener {
 		}
 		addPlayerToTeam(p, command);
 		setColor(p, command);
-		Location loc = (Location) getConfig().get("arena.commands."+command+".spawn");
+		Location loc = getConfig().getLocation("arena.commands."+command+".spawn");
 		p.teleport(loc);
 	}
 	
 	public void tpToSpawn(Player p) {
 		String command = player_teams.get(p.getName());
-		Location loc = (Location) getConfig().get("arena.commands."+command+".spawn");
+		Location loc = getConfig().getLocation("arena.commands."+command+".spawn");
 		p.teleport(loc);
 	}
 	
@@ -2414,6 +2484,10 @@ public class Main extends JavaPlugin implements Listener {
 								send(pl, lang.getString("Common.40").replaceAll("%money%", String.valueOf(each_money)));
 							} catch(Exception ee) {};
 						}
+						if(config.getBoolean("give_elytra_at_game_end")) {
+							pl.getInventory().setChestplate(new ItemStack(Material.ELYTRA));
+							pl.getInventory().setItem(0, new ItemStack(Material.FIREWORK_ROCKET, 64));
+						}
 					}
 				}
 			}
@@ -2440,7 +2514,7 @@ public class Main extends JavaPlugin implements Listener {
 				if(LOBBY_TIME%5 == 0 || LOBBY_TIME <= 5) {
 					sendAll(lang.getString("Common.53").replaceAll("%time%", String.valueOf(LOBBY_TIME)));
 					for(Player pl : Bukkit.getOnlinePlayers()) {
-						pl.playSound(pl.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+						pl.playSound(pl.getLocation(), Sound.UI_LOOM_SELECT_PATTERN, 1, 1);
 					}
 				}
 				LOBBY_TIME--;
@@ -2576,19 +2650,14 @@ public class Main extends JavaPlugin implements Listener {
 			if(!teams.get(team).isEmpty()) {
 				actived_teams.add(team);
 				ItemStack now = getConfig().getItemStack("arena.commands."+team+".block");
-				try {
-					ItemStack ttt = inv_blocks.getItem(0);
-					ItemMeta meta = ttt.getItemMeta();
-					Inventory n = Bukkit.createInventory(null, 9*3, lang.getString("GUI.shop.2"));
-					ItemStack ff = new ItemStack(now.getType(), ttt.getAmount());
-					ff.setItemMeta(meta);
-					n.setContents(inv_blocks.getContents());
-					n.setItem(0, ff);
-					saved_inv.put(team, n);
-				} catch(Exception ee) {
-					Inventory n = Bukkit.createInventory(null, 9*3, lang.getString("GUI.shop.2"));
-					saved_inv.put(team, n);
-				};
+				ItemStack ttt = inv_blocks.getItem(0);
+				ItemMeta meta = ttt.getItemMeta();
+				Inventory n = Bukkit.createInventory(null, 9*3, lang.getString("GUI.shop.2"));
+				ItemStack ff = new ItemStack(now.getType(), ttt.getAmount());
+				ff.setItemMeta(meta);
+				n.setContents(inv_blocks.getContents());
+				n.setItem(0, ff);
+				saved_inv.put(team, n);
 
 				Inventory n2 = Bukkit.createInventory(null, 9*5, lang.getString("GUI.upgrades.1"));
 				n2.setContents(upgrade.getContents());
@@ -2611,7 +2680,7 @@ public class Main extends JavaPlugin implements Listener {
 			ItemStack chestplate = getConfig().getItemStack("arena.commands."+team+".armor.chestplate");
 			ItemStack leggings = getConfig().getItemStack("arena.commands."+team+".armor.leggings");
 			ItemStack boots = getConfig().getItemStack("arena.commands."+team+".armor.boots");
-			ItemStack itt = new ItemStack(Material.WOOD_SWORD);
+			ItemStack itt = new ItemStack(Material.WOODEN_SWORD);
 			player_helmet.put(p_name, helmet);
 			player_chestplate.put(p_name, chestplate);
 			player_leggings.put(p_name, leggings);
@@ -2665,7 +2734,7 @@ public class Main extends JavaPlugin implements Listener {
 								for(String pp : teams.get(base)) {
 									Player ppp = Bukkit.getPlayer(pp);
 									send(ppp, lang.getString("Common.57"));
-									ppp.playSound(ppp.getLocation(), Sound.valueOf(config.getString("specific_blocks.bell.sound")), 1, 1);
+									ppp.playSound(ppp.getLocation(), Sound.BLOCK_BELL_USE, 1, 1);
 								}
 							}
 							if(team_trap.get(base)) {
@@ -2841,7 +2910,7 @@ public class Main extends JavaPlugin implements Listener {
 				if(GAME_TIME == 100 || GAME_TIME == 50 || GAME_TIME == 20 || GAME_TIME <= 10) {
 					sendAll(lang.getString("Common.63").replaceAll("%time%", String.valueOf(GAME_TIME)));
 					for(Player pl : Bukkit.getOnlinePlayers()) {
-						pl.playSound(pl.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+						pl.playSound(pl.getLocation(), Sound.UI_LOOM_SELECT_PATTERN, 1, 1);
 					}
 				}
 				time--;
@@ -2863,7 +2932,6 @@ public class Main extends JavaPlugin implements Listener {
 	@EventHandler
 	public void dam(EntityDamageEvent e) {
 		if(status.equals("wait")) e.setCancelled(true);
-		if(e.getEntity() instanceof Item) e.setCancelled(true);
 		if(status.equals("reload")) {
 			if(e.getEntity() instanceof Player) e.setCancelled(true);
 		}
@@ -2912,6 +2980,13 @@ public class Main extends JavaPlugin implements Listener {
 			Player p = (Player) e.getEntity();
 			if(e.getDamager() instanceof Arrow) {
 				Arrow a = (Arrow) e.getDamager();
+				Player damager = (Player) a.getShooter();
+				String team = player_teams.get(p.getName());
+				String team2 = player_teams.get(damager.getName());
+				if(team.equals(team2)) e.setCancelled(true);
+			}
+			else if(e.getDamager() instanceof Trident) {
+				Trident a = (Trident) e.getDamager();
 				Player damager = (Player) a.getShooter();
 				String team = player_teams.get(p.getName());
 				String team2 = player_teams.get(damager.getName());
@@ -2968,12 +3043,6 @@ public class Main extends JavaPlugin implements Listener {
 		this.getServer().getPluginManager().registerEvents(this, this);
 		bungee_enabled = getConfig().getBoolean("BungeeCord.enabled");
 		if(bungee_enabled) Bukkit.getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
-		Bukkit.getServer().getWorld("world").setGameRuleValue("doDaylightCycle", "false");
-		Bukkit.getServer().getWorld("world").setGameRuleValue("doWeatherCycle", "false");
-		Bukkit.getServer().getWorld("world").setGameRuleValue("doMobSpawning", "false");
-		Bukkit.getServer().getWorld("world").setGameRuleValue("doFireTick", "false");
-		Bukkit.getServer().getWorld("world").setGameRuleValue("announceAdvancements", "false");
-		Bukkit.getServer().getWorld("world").setStorm(false);
 		
 		addCages();
 		file = new File(getDataFolder(), "config.yml");
@@ -3025,7 +3094,7 @@ public class Main extends JavaPlugin implements Listener {
 		max_teams = getConfig().getInt("arena.max_teams");
 		players_in_team = getConfig().getInt("arena.players_in_team");
 		status = getConfig().getString("arena.status");
-		spec = (Location) getConfig().get("arena.spec_spawn");
+		spec = getConfig().getLocation("arena.spec_spawn");
 		diamonds_gen = (List<Location>) getConfig().get("arena.diamonds_gen");
 		emeralds_gen = (List<Location>) getConfig().get("arena.emeralds_gen");
 		shops = (List<Location>) getConfig().get("arena.shops");
@@ -3117,7 +3186,7 @@ public class Main extends JavaPlugin implements Listener {
 		inv_useful.setItem(22, back);
 		inv_potions.setItem(22, back);
 		
-		lobby = new ItemStack(Material.BED);
+		lobby = new ItemStack(Material.RED_BED);
 		ItemMeta meta = lobby.getItemMeta();
 		meta.setDisplayName(lang.getString("hotbar.back"));
 		lobby.setItemMeta(meta);
@@ -3161,81 +3230,16 @@ public class Main extends JavaPlugin implements Listener {
 		p.sendMessage(msg.replaceAll("&", "§"));
 	}
 	
-	public boolean isFinished(Player p) {
-		if(!config.contains("arena.name")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw create [name]");
-			return false;
-		}
-		if(!config.contains("arena.max_teams")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw setmaxteams [count]");
-			return false;
-		}
-		if(!config.contains("arena.min_teams")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw setminteams [count]");
-			return false;
-		}
-		if(!config.contains("arena.players_in_team")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw setplayersinteam [count]");
-			return false;
-		}
-		if(!config.contains("arena.shops")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw addshop");
-			return false;
-		}
-		if(!config.contains("arena.upgrades")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw addupgrade");
-			return false;
-		}
-		if(!config.contains("arena.commands.spawn")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw setspawn [command name]");
-			return false;
-		}
-		if(!config.contains("arena.commands.bed")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw setbedloc [command]");
-			return false;
-		}
-		if(!config.contains("arena.commands.block")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw setblock [command]");
-			return false;
-		}
-		if(!config.contains("arena.commands.iron_gens")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw addironspawn [command]");
-			return false;
-		}
-		if(!config.contains("arena.commands.armor")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw setarmor [command]");
-			return false;
-		}
-		if(!config.contains("arena.spec_spawn")) {
-			send(p, lang.getString("Common.68"));
-			send(p, "/bw setspec");
-		}
-		return true;
-	}
-	
 	@Override
 	public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
 		if(sender instanceof Player) {
 			Player p = (Player) sender;
 			if(cmd.getName().equals("stat")) {
 				if(mysql_enabled) {
-					boolean first_use = false;
 					if(!stat_cd.containsKey(p.getName()) || stat_cd.get(p.getName()) == null) {
 						stat_cd.put(p.getName(), (long)(System.currentTimeMillis()/1000));
-						first_use = true;
 					}
-					if(first_use || (long)(System.currentTimeMillis()/1000) - stat_cd.get(p.getName()) >= config.getLong("command_stat_cooldown")) {
+					if((long)(System.currentTimeMillis()/1000) - stat_cd.get(p.getName()) >= config.getLong("command_stat_cooldown")) {
 						if(args.length == 0) {
 							checkStat(p, p.getName());
 							stat_cd.replace(p.getName(), (long)(System.currentTimeMillis()/1000));
@@ -3286,7 +3290,7 @@ public class Main extends JavaPlugin implements Listener {
 								String name = args[1];
 								getConfig().set("arena.name", name);
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3296,7 +3300,7 @@ public class Main extends JavaPlugin implements Listener {
 								int count = Integer.valueOf(args[1]);
 								getConfig().set("arena.min_teams", count);
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3306,7 +3310,7 @@ public class Main extends JavaPlugin implements Listener {
 								int count = Integer.valueOf(args[1]);
 								getConfig().set("arena.max_teams", count);
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3340,7 +3344,7 @@ public class Main extends JavaPlugin implements Listener {
 								list.add(it);
 								getConfig().set("shops."+sh, list);
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3350,7 +3354,7 @@ public class Main extends JavaPlugin implements Listener {
 								int count = Integer.valueOf(args[1]);
 								getConfig().set("arena.players_in_team", count);
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3360,7 +3364,7 @@ public class Main extends JavaPlugin implements Listener {
 								String name = args[1];
 								getConfig().set("arena.commands."+name+".spawn", p.getLocation());
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3370,7 +3374,7 @@ public class Main extends JavaPlugin implements Listener {
 								String name = args[1];
 								getConfig().set("arena.commands."+name+".block", p.getItemInHand());
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3387,7 +3391,7 @@ public class Main extends JavaPlugin implements Listener {
 								getConfig().set("arena.commands."+name+".armor.leggings", leggings);
 								getConfig().set("arena.commands."+name+".armor.boots", boots);
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3397,7 +3401,7 @@ public class Main extends JavaPlugin implements Listener {
 								String name = args[1];
 								getConfig().set("arena.commands."+name+".bed", p.getTargetBlock(null, 6).getLocation());
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3408,7 +3412,7 @@ public class Main extends JavaPlugin implements Listener {
 								String c = args[2];
 								getConfig().set("arena.commands."+name+".color", c);
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3416,7 +3420,7 @@ public class Main extends JavaPlugin implements Listener {
 						else if(args[0].equals("setspec")) {
 							getConfig().set("arena.spec_spawn", p.getLocation());
 							send(p, lang.getString("Common.64"));
-							p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+							p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 							saveConfig();
 							reloadConfig();
 						}
@@ -3437,7 +3441,7 @@ public class Main extends JavaPlugin implements Listener {
 									getConfig().set("arena.commands."+name+".iron_gens", list);
 								}
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3459,7 +3463,7 @@ public class Main extends JavaPlugin implements Listener {
 									getConfig().set("arena.commands."+name+".gold_gens", list);
 								}
 								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+								p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 								saveConfig();
 								reloadConfig();
 							}
@@ -3479,7 +3483,7 @@ public class Main extends JavaPlugin implements Listener {
 								getConfig().set("arena.diamonds_gen", list);
 							}
 							send(p, lang.getString("Common.64"));
-							p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+							p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 							saveConfig();
 							reloadConfig();
 						}
@@ -3498,7 +3502,7 @@ public class Main extends JavaPlugin implements Listener {
 								getConfig().set("arena.emeralds_gen", list);
 							}
 							send(p, lang.getString("Common.64"));
-							p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+							p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 							saveConfig();
 							reloadConfig();
 						}
@@ -3507,7 +3511,7 @@ public class Main extends JavaPlugin implements Listener {
 							list.add(p.getLocation());
 							getConfig().set("arena.shops", list);
 							send(p, lang.getString("Common.64"));
-							p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+							p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 							saveConfig();
 							reloadConfig();
 						}
@@ -3516,29 +3520,27 @@ public class Main extends JavaPlugin implements Listener {
 							list.add(p.getLocation());
 							getConfig().set("arena.upgrades", list);
 							send(p, lang.getString("Common.64"));
-							p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+							p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 							saveConfig();
 							reloadConfig();
 						}
 						else if(args[0].equals("finish")) {
-							if(isFinished(p)) {
-								p.kickPlayer("Настройка арены завершена");
-								getConfig().set("arena.status", "wait");
-								status = "wait";
-								send(p, lang.getString("Common.64"));
-								p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
-								saveConfig();
-								reloadConfig();
-							}
+							toLobby(p);
+							getConfig().set("arena.status", "wait");
+							status = "wait";
+							send(p, lang.getString("Common.64"));
+							p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
+							saveConfig();
+							reloadConfig();
 						}
 						else if(args[0].equals("save")) {
 							saveConfig();
 							reloadConfig();
 							send(p, lang.getString("Common.64"));
-							p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+							p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 						}
 						else if(args[0].equals("edit")) {
-							p.playSound(p.getLocation(), Sound.UI_BUTTON_CLICK, 1, 1);
+							p.playSound(p.getLocation(), Sound.UI_LOOM_TAKE_RESULT, 1, 1);
 							send(p, lang.getString("Common.64"));
 							status = "reload";
 							saveConfig();
