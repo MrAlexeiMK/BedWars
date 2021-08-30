@@ -1,0 +1,10 @@
+name: BedWarsMeow
+main: argento.bedwars.Main
+version: 1.0
+author: ArgentoChest
+softdepend: [Vault]
+commands:
+  bedwars:
+    aliases: [bw]
+  stat:
+    aliases: [stats]

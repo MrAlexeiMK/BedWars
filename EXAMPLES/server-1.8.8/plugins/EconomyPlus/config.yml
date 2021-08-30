@@ -1,0 +1,95 @@
+#  ╔════════════════════════════════════════════════════════════════════════════════════════════════╗
+#  ║ ███████╗░█████╗░░█████╗░███╗░░██╗░█████╗░███╗░░░███╗██╗░░░██╗██████╗░██╗░░░░░██╗░░░██╗░██████╗ ║
+#  ║ ██╔════╝██╔══██╗██╔══██╗████╗░██║██╔══██╗████╗░████║╚██╗░██╔╝██╔══██╗██║░░░░░██║░░░██║██╔════╝ ║
+#  ║ █████╗░░██║░░╚═╝██║░░██║██╔██╗██║██║░░██║██╔████╔██║░╚████╔╝░██████╔╝██║░░░░░██║░░░██║╚█████╗░ ║
+#  ║ ██╔══╝░░██║░░██╗██║░░██║██║╚████║██║░░██║██║╚██╔╝██║░░╚██╔╝░░██╔═══╝░██║░░░░░██║░░░██║░╚═══██╗ ║
+#  ║ ███████╗╚█████╔╝╚█████╔╝██║░╚███║╚█████╔╝██║░╚═╝░██║░░░██║░░░██║░░░░░███████╗╚██████╔╝██████╔╝ ║
+#  ║ ╚══════╝░╚════╝░░╚════╝░╚═╝░░╚══╝░╚════╝░╚═╝░░░░░╚═╝░░░╚═╝░░░╚═╝░░░░░╚══════╝░╚═════╝░╚═════╝░ ║
+#  ╚════════════════════════════════════════════════════════════════════════════════════════════════╝
+
+# EconomyPlus made by _ItsWagPvP
+# Watch the full resource on https://github.com/ItsWagPvP/EconomyPlus
+
+# Do not change this
+Version: 1.8
+
+# bStats system (https://bstats.org/plugin/bukkit/EconomyPlus/11565)
+Metrics: true
+
+# Controls if EconomyPlus need to connect to another plugin for more features
+Hooks:
+  # Placeholders
+  PlaceholderAPI: true
+  MVdWPlaceholderAPI: true
+  HolographicDisplays: true
+
+# Check for updates
+Updater:
+  Console: true
+  Player: true
+
+# Play to the player the sounds in front of success / error
+Sounds:
+  Use: true
+  Success: ENTITY_PLAYER_LEVELUP
+  Error: ENTITY_VILLAGER_NO
+
+# Used to format the %economyplus_money_formatted% placeholder
+# 1000 = 1k
+# 1000000 = 1M
+# 1000000000 = 1B
+# 1000000000000 = 1T
+# 1000000000000000 = 1Q
+Format:
+  k: "k"
+  M: "M"
+  B: "B"
+  T: "T"
+  Q: "Q"
+
+# Set a user balance on join
+Starting-Balance: 0.00
+
+# Use the decimal
+# If true it's 0.00, if false is 0
+Decimals: true
+
+# Baltop configuration
+Baltop:
+  Chat:
+    # Like 1) _ItsWagPvP: 100$
+    Player-Format: "&6%number%) &f%player%: &c%money%$"
+    # The header of /baltop
+    Header:
+      - '&8&m-----------------'
+      - '&d&lBalTop (Page %page%)'
+      - '&8&m-----------------'
+  # This is for the hologram! (/ep hologram)
+  Hologram:
+    # Refresh rate in seconds!
+    Refresh-Rate: 60
+    Player-Format: "&6%number%) &f%player%: &c%money%$"
+    Header:
+      - '&8&m-----------------'
+      - '&d&lBalTop'
+      - '&8&m-----------------'
+
+# Select how to storage the data
+Database:
+  # H2 (database.db file)
+  # MySQL
+  Type: H2
+  # If you have set Type to H2 you have to ignore this section
+  # Localhost connection
+  Host: localhost
+  # Default is 3306
+  Port: 3306
+  # The user for use MySQL connection
+  User: root
+  # Password of the user
+  Password: qwerty
+  # Database name
+  Database: EconomyPlus
+  # If you have not set up the table the plugin will create it for you!
+  Table: economy
+
