@@ -1,4 +1,6 @@
 # BedWars
  Minecraft plugin on BedWars game on spigot 1.8-1.17.1  
- YandexDisk: https://disk.yandex.ru/d/oNe1PQdimfWCnw
- Installation: https://www.youtube.com/watch?v=krtnFcqwpVo
+ Installation: https://www.youtube.com/watch?v=krtnFcqwpVo  
+   
+ Folder ServerExample-1.16.2 contains the BedWars server running my plugin.  
+ 
