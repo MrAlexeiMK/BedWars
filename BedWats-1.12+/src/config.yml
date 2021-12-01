@@ -5,14 +5,14 @@
 #jdbc:mysql://[host]:[port]/[database]
 #Create [database] in your MySQL before loading!
 MySQL:
-  enabled: true
+  enabled: false
   url: "jdbc:mysql://localhost:3306/bedwars?useSSL=false&autoReconnect=true"
   user: "root"
   password: ""
 #if BungeeCord enabled, player will be teleported at lobby at game end, else will be run command_at_game_end by player
 
 BungeeCord:
-  enabled: false
+  enabled: true
   lobby: "lobby"
 command_at_game_end: "/lobby"
 
@@ -334,6 +334,20 @@ shops:
       meta-type: UNSPECIFIC
       lore:
       - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+  - ==: org.bukkit.inventory.ItemStack
+    type: GOLDEN_APPLE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c3 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    type: WATER_BUCKET
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §6Золота'
   tools:
   - ==: org.bukkit.inventory.ItemStack
     type: STONE_PICKAXE

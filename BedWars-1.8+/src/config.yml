@@ -5,7 +5,7 @@
 #jdbc:mysql://[host]:[port]/[database]
 #Create [database] in your MySQL before loading!
 MySQL:
-  enabled: true
+  enabled: false
   url: "jdbc:mysql://localhost:3306/bedwars?useSSL=false&autoReconnect=true"
   user: "root"
   password: ""

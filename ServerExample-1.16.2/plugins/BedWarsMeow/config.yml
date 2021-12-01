@@ -1,0 +1,1141 @@
+MySQL:
+  enabled: false
+  url: jdbc:mysql://localhost:3306/bedwars?useSSL=false&autoReconnect=true
+  user: root
+  password: ''
+BungeeCord:
+  enabled: true
+  lobby: lobby
+command_at_game_end: /lobby
+TAB_plugin_support: true
+game_end_restart_seconds: 15
+game_end_to_lobby_players_seconds: 12
+command_stat_cooldown: 5
+give_elytra_at_game_end: true
+fireball_cooldown: 20
+fireball_radius_explosion: 3
+fireball_distance_from_player: 1.0
+disable_tnt_damage_others_players: true
+glass_unexplosion: true
+players_need_food: false
+give_money: true
+bed_break_money: 50
+win_money: 100
+final_kill_money: 25
+respawn_time_seconds: 5
+autodeath_y_coord: -70
+height_limit: 255
+border: 500
+lobby_time: 30
+game_time: 2400
+slow_and_blind_after_bed_break: true
+sounds:
+  bed_break:
+    enabled: true
+    sound: ENTITY_ENDER_DRAGON_AMBIENT
+specific_blocks:
+  distance_to_bed_need: 5
+  bell:
+    enabled: true
+    material: BELL
+  campfire:
+    enabled: true
+    material: CAMPFIRE
+upgrades:
+  trap: 2
+  generator:
+    '2': 8
+    '3': 16
+    '4': 24
+    '5': 32
+  sword:
+    '2': 8
+    '3': 16
+    '4': 24
+  armor:
+    '2': 4
+    '3': 8
+    '4': 16
+    '5': 32
+  speed:
+    '2': 4
+    '3': 8
+    '4': 16
+up_tier_time:
+  '2': 1600
+  '3': 800
+bed_gone_time: 400
+iron_tier:
+  '1':
+    amount: 1
+    time: 1
+  '2':
+    amount: 2
+    time: 1
+  '3':
+    amount: 2
+    time: 1
+gold_tier:
+  '1':
+    amount: 1
+    time: 4
+  '2':
+    amount: 1
+    time: 2
+  '3':
+    amount: 1
+    time: 1
+diamond_tier:
+  '1':
+    amount: 1
+    time: 30
+  '2':
+    amount: 1
+    time: 20
+  '3':
+    amount: 1
+    time: 10
+emerald_tier:
+  '1':
+    amount: 1
+    time: 60
+  '2':
+    amount: 1
+    time: 40
+  '3':
+    amount: 1
+    time: 20
+shops:
+  blocks:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: WHITE_WOOL
+    amount: 16
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: WHITE_TERRACOTTA
+    amount: 16
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c12 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: END_STONE
+    amount: 16
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c24 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: OAK_PLANKS
+    amount: 8
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c3 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: GLASS
+    amount: 16
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c6 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SPONGE
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: MAGMA_BLOCK
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: OBSIDIAN
+    amount: 8
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SLIME_BLOCK
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c20 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: HAY_BLOCK
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c1 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: LADDER
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TWISTING_VINES
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c20 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SCAFFOLDING
+    amount: 4
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c30 §fЖелеза'
+  armor:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CHAINMAIL_BOOTS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §fКольчужная броня
+      lore:
+      - '§7Цена: §c30 §fЖелеза'
+      - §7(§cСохраняется после смерти§7)
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: IRON_BOOTS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §fЖелезная броня
+      lore:
+      - '§7Цена: §c12 §6Золота'
+      - §7(§cСохраняется после смерти§7)
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: DIAMOND_BOOTS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §fАлмазная броня
+      lore:
+      - '§7Цена: §c6 §2Изумруд(-ов,-а)'
+      - §7(§cСохраняется после смерти§7)
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: NETHERITE_BOOTS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      display-name: §fНезеритовая броня
+      lore:
+      - '§7Цена: §c10 §2Изумруд(-ов,-а)'
+      - §7(§cСохраняется после смерти§7)
+  swords:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: STONE_SWORD
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §fЖелеза'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: IRON_SWORD
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c7 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: DIAMOND_SWORD
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: NETHERITE_SWORD
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TRIDENT
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §2Изумруд(-ов,-а)'
+      enchants:
+        LOYALTY: 1
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SHIELD
+    meta:
+      ==: ItemMeta
+      meta-type: TILE_ENTITY
+      lore:
+      - '§7Цена: §c20 §6Золота'
+      Unbreakable: true
+      blockMaterial: SHIELD
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: STICK
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §6Золота'
+      enchants:
+        KNOCKBACK: 2
+  bows:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: BOW
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c12 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: BOW
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c24 §6Золота'
+      enchants:
+        ARROW_DAMAGE: 1
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: BOW
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      enchants:
+        ARROW_DAMAGE: 1
+        ARROW_KNOCKBACK: 1
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CROSSBOW
+    meta:
+      ==: ItemMeta
+      meta-type: CROSSBOW
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+      charged: false
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CROSSBOW
+    meta:
+      ==: ItemMeta
+      meta-type: CROSSBOW
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+      enchants:
+        MULTISHOT: 1
+      Unbreakable: true
+      charged: false
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CROSSBOW
+    meta:
+      ==: ItemMeta
+      meta-type: CROSSBOW
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+      enchants:
+        PIERCING: 3
+      Unbreakable: true
+      charged: false
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: ARROW
+    amount: 8
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c2 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TIPPED_ARROW
+    amount: 2
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c16 §6Золота'
+      potion-type: minecraft:slowness
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TIPPED_ARROW
+    amount: 2
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c16 §6Золота'
+      potion-type: minecraft:weakness
+  tools:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: SHEARS
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c5 §fЖелеза'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: STONE_PICKAXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §fЖелеза'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: STONE_AXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §fЖелеза'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: IRON_PICKAXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: IRON_AXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: DIAMOND_PICKAXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: DIAMOND_AXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c10 §6Золота'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: NETHERITE_PICKAXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c1 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: NETHERITE_AXE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      Unbreakable: true
+  useful:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TNT
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c6 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: WATER_BUCKET
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c3 §6Золота'
+      - §fА §bВатер-дроп §fслабо сделать?
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: GOLDEN_APPLE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c3 §6Золота'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: TOTEM_OF_UNDYING
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: ENDER_PEARL
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: BELL
+    meta:
+      ==: ItemMeta
+      meta-type: TILE_ENTITY
+      lore:
+      - '§7Цена: §c64 §fЖелеза'
+      - §fОповещает всех союзников при
+      - §fвторжении на вашу базу
+      - §7(§cставить возле кровати§7)
+      blockMaterial: BELL
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: CAMPFIRE
+    meta:
+      ==: ItemMeta
+      meta-type: TILE_ENTITY
+      lore:
+      - '§7Цена: §c8 §2Изумруд(-ов,-а)'
+      - §fУ врагов, вошедших на вашу базу будут
+      - §fвременно выключены все §cпрокачки
+      - §7(§cставить возле кровати§7)
+      blockMaterial: CAMPFIRE
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: FIRE_CHARGE
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c50 §fЖелеза'
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: EGG
+    meta:
+      ==: ItemMeta
+      meta-type: UNSPECIFIC
+      lore:
+      - '§7Цена: §c2 §2Изумруд(-ов,-а)'
+      - §fСоздаёт дорожку из блоков
+  potions:
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c4 §2Изумруд(-ов,-а)'
+      - '§fДлительность: §c30 секунд'
+      potion-type: minecraft:invisibility
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c3 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:strength
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c3 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:slow_falling
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c3 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:strong_turtle_master
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c2 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:strong_leaping
+  - ==: org.bukkit.inventory.ItemStack
+    v: 2578
+    type: POTION
+    meta:
+      ==: ItemMeta
+      meta-type: POTION
+      lore:
+      - '§7Цена: §c2 §2Изумруд(-ов,-а)'
+      potion-type: minecraft:long_swiftness
+
+arena:
+  name: Маяк
+  min_teams: 2
+  max_teams: 4
+  players_in_team: 4
+  diamonds_gen:
+  - ==: org.bukkit.Location
+    world: world
+    x: -47.0
+    y: 64.0
+    z: -43.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: 44.0
+    y: 64.0
+    z: -46.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: 47.0
+    y: 64.0
+    z: 45.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: -44.0
+    y: 64.0
+    z: 48.0
+    pitch: 0.0
+    yaw: 0.0
+  emeralds_gen:
+  - ==: org.bukkit.Location
+    world: world
+    x: 0.0
+    y: 65.0
+    z: 1.0
+    pitch: 0.0
+    yaw: 0.0
+  - ==: org.bukkit.Location
+    world: world
+    x: 0.0
+    y: 84.0
+    z: 1.0
+    pitch: 0.0
+    yaw: 0.0
+  shops:
+  - ==: org.bukkit.Location
+    world: world
+    x: 6.6548689641945815
+    y: 63.0
+    z: -77.81646230054317
+    pitch: 1.3143833
+    yaw: 90.45148
+  - ==: org.bukkit.Location
+    world: world
+    x: -79.04897457375
+    y: 63.0
+    z: -4.699999988079071
+    pitch: 1.8475474
+    yaw: 0.5831299
+  - ==: org.bukkit.Location
+    world: world
+    x: -5.699999988079068
+    y: 63.0
+    z: 80.95219500098659
+    pitch: 1.2252567
+    yaw: 269.46484
+  - ==: org.bukkit.Location
+    world: world
+    x: 79.95683706710521
+    y: 63.0
+    z: 7.699999988079069
+    pitch: 1.2252533
+    yaw: 180.71924
+  upgrades:
+  - ==: org.bukkit.Location
+    world: world
+    x: -5.6982430310511685
+    y: 63.0
+    z: -77.95154288723548
+    pitch: 3.1811469
+    yaw: 270.82776
+  - ==: org.bukkit.Location
+    world: world
+    x: -78.96559418121782
+    y: 63.0
+    z: 7.699999988079071
+    pitch: 1.8475324
+    yaw: 179.71509
+  - ==: org.bukkit.Location
+    world: world
+    x: 6.699999988079068
+    y: 63.0
+    z: 80.87369074054594
+    pitch: 1.2252662
+    yaw: 90.33325
+  - ==: org.bukkit.Location
+    world: world
+    x: 80.04576286598255
+    y: 63.0
+    z: -4.699999988079069
+    pitch: 3.714251
+    yaw: 0.26708984
+  spec_spawn:
+    ==: org.bukkit.Location
+    world: world
+    x: 1.7452194904847462
+    y: 114.1684951173991
+    z: 2.9075526227530033
+    pitch: 88.755486
+    yaw: 183.0326
+  commands:
+    Красные:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: 0.5569452151974212
+        y: 64.0
+        z: -67.57436084476457
+        pitch: -0.01923195
+        yaw: 358.0951
+      color: c
+      iron_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 63.0
+        z: -81.0
+        pitch: 0.0
+        yaw: 0.0
+      gold_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 63.0
+        z: -81.0
+        pitch: 0.0
+        yaw: 0.0
+      bed:
+        ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 64.0
+        z: -65.0
+        pitch: 0.0
+        yaw: 0.0
+      block:
+        ==: org.bukkit.inventory.ItemStack
+        v: 2578
+        type: RED_WOOL
+        meta:
+          ==: ItemMeta
+          meta-type: UNSPECIFIC
+          display-name: §aВыбор команды
+      armor:
+        helmet:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_HELMET
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            display-name: §cКрасные
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 176
+              BLUE: 38
+              GREEN: 46
+        chestplate:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_CHESTPLATE
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 176
+              BLUE: 38
+              GREEN: 46
+        leggings:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_LEGGINGS
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 176
+              BLUE: 38
+              GREEN: 46
+        boots:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_BOOTS
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 176
+              BLUE: 38
+              GREEN: 46
+    Зелёные:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: -67.5243430820413
+        y: 64.0
+        z: 1.3969384470842467
+        pitch: 2.0549612
+        yaw: 272.0172
+      color: '2'
+      bed:
+        ==: org.bukkit.Location
+        world: world
+        x: -65.0
+        y: 64.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+      iron_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: -82.0
+        y: 63.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+      gold_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: -82.0
+        y: 63.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+      block:
+        ==: org.bukkit.inventory.ItemStack
+        v: 2578
+        type: LIME_WOOL
+      armor:
+        helmet:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_HELMET
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            display-name: §2Зелёные
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 94
+              BLUE: 22
+              GREEN: 124
+        chestplate:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_CHESTPLATE
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 94
+              BLUE: 22
+              GREEN: 124
+        leggings:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_LEGGINGS
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 94
+              BLUE: 22
+              GREEN: 124
+        boots:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_BOOTS
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 94
+              BLUE: 22
+              GREEN: 124
+    Жёлтые:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: 0.6018104899053389
+        y: 64.0
+        z: 70.19637517778251
+        pitch: -2.0934138
+        yaw: 179.50879
+      color: e
+      bed:
+        ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 64.0
+        z: 67.0
+        pitch: 0.0
+        yaw: 0.0
+      iron_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 63.0
+        z: 83.0
+        pitch: 0.0
+        yaw: 0.0
+      gold_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 0.0
+        y: 63.0
+        z: 83.0
+        pitch: 0.0
+        yaw: 0.0
+      block:
+        ==: org.bukkit.inventory.ItemStack
+        v: 2578
+        type: YELLOW_WOOL
+      armor:
+        helmet:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_HELMET
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            display-name: §eЖёлтые
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 254
+              BLUE: 61
+              GREEN: 216
+        chestplate:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_CHESTPLATE
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 254
+              BLUE: 61
+              GREEN: 216
+        leggings:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_LEGGINGS
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 254
+              BLUE: 61
+              GREEN: 216
+        boots:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_BOOTS
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 254
+              BLUE: 61
+              GREEN: 216
+    Синие:
+      spawn:
+        ==: org.bukkit.Location
+        world: world
+        x: 69.33923647568443
+        y: 64.0
+        z: 1.3722791505331318
+        pitch: 2.469804
+        yaw: 90.11243
+      color: '1'
+      bed:
+        ==: org.bukkit.Location
+        world: world
+        x: 66.0
+        y: 64.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+      iron_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 82.0
+        y: 63.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+      gold_gens:
+      - ==: org.bukkit.Location
+        world: world
+        x: 82.0
+        y: 63.0
+        z: 1.0
+        pitch: 0.0
+        yaw: 0.0
+      block:
+        ==: org.bukkit.inventory.ItemStack
+        v: 2578
+        type: BLUE_WOOL
+      armor:
+        helmet:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_HELMET
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            display-name: §1Синие
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 60
+              BLUE: 170
+              GREEN: 68
+        chestplate:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_CHESTPLATE
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 60
+              BLUE: 170
+              GREEN: 68
+        leggings:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_LEGGINGS
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 60
+              BLUE: 170
+              GREEN: 68
+        boots:
+          ==: org.bukkit.inventory.ItemStack
+          v: 2578
+          type: LEATHER_BOOTS
+          meta:
+            ==: ItemMeta
+            meta-type: LEATHER_ARMOR
+            Unbreakable: true
+            color:
+              ==: Color
+              RED: 60
+              BLUE: 170
+              GREEN: 68
+  status: wait

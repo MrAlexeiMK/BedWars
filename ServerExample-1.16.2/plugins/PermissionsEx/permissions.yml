@@ -1,0 +1,131 @@
+groups:
+  player:
+    options:
+      default: true
+    permissions:
+    - API.player
+    - chestcommands.open.*
+    - worldguard.region.select.own.*
+    - worldedit.selection.hpos
+    - worldedit.selection.pos
+    - worldedit.wand
+    - worldedit.selection.expand
+    - worldedit.selection.contract
+    - worldguard.region.flag.regions.own.*
+    - worldguard.region.flag.flags.use.*
+    - worldguard.region.flag.flags.pvp.*
+    - worldguard.region.claim
+    - worldguard.region.remove.own.*
+    - worldguard.region.info.own.*
+    - worldguard.region.addowner.own.*
+    - worldguard.region.removeowner.own.*
+    - worldguard.region.addmember.own.*
+    - worldguard.region.removemember.own.*
+    - worldguard.region.list.own
+    - worldguard.region.wand
+    - crazyauctions.access
+    - crazyauctions.sell
+    - crazyauctions.sell.10
+    - sit.block.*
+    - sit.use
+  vip:
+    options:
+      default: false
+    inheritance:
+    - player
+    permissions:
+    - API.vip
+    - uhc-core.kit.1
+    - uhc-core.kit.2
+    - crazyauctions.sell.12
+  vip+:
+    options:
+      default: false
+    inheritance:
+    - vip
+    permissions:
+    - API.vip+
+    - uhc-core.kit.3
+    - uhc-core.kit.4
+    - crazyauctions.bid
+    - crazyauctions.sell.15
+    - crazyauctions.bid.5
+  mvp:
+    options:
+      default: false
+    inheritance:
+    - vip+
+    permissions:
+    - API.mvp
+    - uhc-core.kit.5
+    - uhc-core.kit.6
+    - crazyauctions.sell.18
+    - crazyauctions.bid.7
+  mvp+:
+    options:
+      default: false
+    inheritance:
+    - mvp
+    permissions:
+    - API.mvp+
+    - uhc-core.kit.7
+    - uhc-core.kit.8
+    - crazyauctions.sell.20
+    - crazyauctions.bid.10
+  premium:
+    options:
+      default: false
+    inheritance:
+    - mvp+
+    permissions:
+    - API.premium
+    - uhc-core.kit.9
+    - uhc-core.kit.10
+    - crazyauctions.sell.25
+    - crazyauctions.bid.15
+  youtube:
+    options:
+      default: false
+    inheritance:
+    - premium
+    permissions:
+    - API.youtube
+  helper:
+    options:
+      default: false
+    inheritance:
+    - premium
+    permissions:
+    - API.helper
+    - ab.check
+  moder:
+    options:
+      default: false
+    inheritance:
+    - helper
+    permissions:
+    - API.moder
+    - ab.banlist
+    - ab.history
+    - minecraft.command.tp
+    - ab.mute.temp
+    - ab.ban.temp
+    - ab.tempmute.dur.3
+    - ab.tempban.dur.3
+  admin:
+    options:
+      default: false
+    inheritance:
+    - moder
+    permissions:
+    - API.admin
+    - ab.kick.use
+    - ab.ban.perma
+    - ab.ipban.perma
+    - ab.mute.perma
+  glav:
+    options:
+      default: false
+    permissions:
+    - '*'
+schema-version: 1

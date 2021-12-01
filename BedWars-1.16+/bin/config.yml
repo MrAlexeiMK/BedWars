@@ -1,9 +1,12 @@
+#Make sure that your server folder have "world" world!
+#To regenerate your world after game you need to paste "map" world with clean map in your server folder!
+
 #If you want, you can connect mysql to collect players stats
 #jdbc:mysql://[host]:[port]/[database]
 #Create [database] in your MySQL before loading!
 MySQL:
-  enabled: true
-  url: "jdbc:mysql://localhost:3306/bedwars?useSSL=false&autoReConnect=true"
+  enabled: false
+  url: "jdbc:mysql://localhost:3306/bedwars?useSSL=false&autoReconnect=true"
   user: "root"
   password: ""
 #if BungeeCord enabled, player will be teleported at lobby at game end, else will be run command_at_game_end by player
@@ -40,6 +43,7 @@ command_stat_cooldown: 5 #seconds
 give_elytra_at_game_end: true
 fireball_cooldown: 20 #20 ticks = 1 second
 fireball_radius_explosion: 3 #in blocks
+fireball_distance_from_player: 1.0
 disable_tnt_damage_others_players: true
 glass_unexplosion: true #should glass save from tnt?
 players_need_food: false

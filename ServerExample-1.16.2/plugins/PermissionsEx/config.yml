@@ -1,0 +1,23 @@
+multiserver:
+  use-netevents: true
+permissions:
+  debug: false
+  allowOps: false
+  user-add-groups-last: false
+  log-players: false
+  createUserRecords: false
+  backend: file
+  informplayers:
+    changes: false
+  basedir: plugins/PermissionsEx
+  backends:
+    sql:
+      uri: mysql://localhost/minigames
+      user: root
+      password: ''
+      type: sql
+    file:
+      type: file
+      file: permissions.yml
+updater: false
+alwaysUpdate: false
